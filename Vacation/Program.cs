@@ -12,7 +12,7 @@ namespace Vacation
             int day = 0;
             int spentCounter = 0;
 
-            while (spentCounter != 5)
+            while (spentCounter < 5 && currentMoney < neededMoneyForVacation)
             {
                 string choice = Console.ReadLine();
                 double money = double.Parse(Console.ReadLine());
@@ -25,24 +25,21 @@ namespace Vacation
                 }
                 else if (choice == "spend")
                 {
+                    currentMoney -= money;
                     spentCounter++;
-                    if (money > currentMoney)
+                    if (currentMoney < 0)
                     {
                         currentMoney = 0;
                     }
-                    else
-                    {
-                        currentMoney -= money;
-                    }
-                }
-                if (currentMoney >= neededMoneyForVacation)
-                {
-                    Console.WriteLine($"You saved the money for {day} days.");
                 }
             }
             if (spentCounter == 5)
             {
                 Console.WriteLine($"You can't save the money.\n{day}");
+            }
+            if (currentMoney >= neededMoneyForVacation)
+            {
+                Console.WriteLine($"You saved the money for {day} days.");
             }
         }
     }
